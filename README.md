@@ -1,9 +1,13 @@
 # android-gradle-docker
-```
-Java 8
-Gradle 2.14.1
-Android 24.4.1
-```
+[![android](http://dockeri.co/image/cangol/android-gradle)](https://hub.docker.com/r/cangol/android-gradle/)
+
+## Included
+* OpenJDK 8
+* Git
+* Gradle 2.14
+* Android SDK (android-23,android-24)
+* Android Support Libraries
+* Google Play Services
 ## Build image
 
 ```bash

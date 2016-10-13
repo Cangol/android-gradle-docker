@@ -8,6 +8,7 @@
 * Android SDK (android-24)
 * Android Support Libraries
 * Google Play Services
+
 ## Build image
 
 ```bash

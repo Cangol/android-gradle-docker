@@ -2,6 +2,7 @@ FROM openjdk:8-jdk
 MAINTAINER Cangol  <wxw404@gmail.com>
 
 ENV SDK_HOME /usr/local
+
 RUN apt-get --quiet update --yes
 RUN apt-get --quiet install --yes wget tar unzip lib32stdc++6 lib32z1 git --no-install-recommends
 # Gradle

@@ -13,10 +13,10 @@ RUN wget --quiet --output-document=android-sdk.tgz https://dl.google.com/android
 RUN echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter "${ANDROID_TARGET_SDK}" && \
     echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter platform-tools && \
     echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter "${ANDROID_BUILD_TOOLS} && \
-    echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter "${ANDROID_IMAGES}"
 RUN echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter extra-android-m2repository && \
     echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter extra-google-google_play_services && \
     echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter extra-google-m2repository
+RUN echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter "${ANDROID_IMAGES}"
 RUN echo n | android create avd --force -n "x86" -t android-23 --abi default/x86
 ENV ANDROID_HOME $PWD/android-sdk-linux
 # Gradle

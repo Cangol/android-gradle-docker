@@ -29,5 +29,5 @@ RUN echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all -
     echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter extra-google-m2repository
 RUN echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter "${ANDROID_IMAGES}" --force
 ENV ANDROID_HOME $PWD/android-sdk-linux
-ENV PATH ${ANDROID_HOME}/tools:${ANDROID_HOME}/platforms-tools:$PATH
+ENV PATH ${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:$PATH
 

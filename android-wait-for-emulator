@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Wait for Android to finish booting
-adb wait-for-device shell getprop init.svc.bootanim
+WAIT_CMD="adb wait-for-device shell getprop init.svc.bootanim"
 until $WAIT_CMD | grep -m 1 stopped; do
   echo "Waiting..."
   sleep 1

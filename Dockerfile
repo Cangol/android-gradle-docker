@@ -31,6 +31,6 @@ RUN echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all -
 ENV ANDROID_HOME $PWD/android-sdk-linux
 ENV PATH ${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:$PATH
 #android-wait-for-emulator
-RUN curl https://raw.githubusercontent.com/Cangol/android-gradle-docker/master/android-wait-for-emulator > ${SDK_HOME}/android-wait-for-emulator
-RUN chmod u+x ${SDK_HOME}/android-wait-for-emulator
+RUN curl https://raw.githubusercontent.com/Cangol/android-gradle-docker/master/android-wait-for-emulator -o ${SDK_HOME}/bin/android-wait-for-emulator
+RUN chmod u+x ${SDK_HOME}/bin/android-wait-for-emulator
 

@@ -5,6 +5,7 @@
 * OpenJDK 8
 * Git
 * Gradle 2.14.1
+* Android NDK r10e
 * Android SDK (android-23,android-24)
 * Android Build-tools (23.0.0,23.0.1,23.0.2,23.0.3,24.0.0,24.0.1,24.0.2,24.0.3)
 * Android System Images(sys-img-armeabi-v7a-android-23,sys-img-armeabi-v7a-android-24)

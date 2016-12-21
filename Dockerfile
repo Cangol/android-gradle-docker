@@ -30,6 +30,16 @@ RUN echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all -
 RUN echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter "${ANDROID_IMAGES}" --force
 ENV ANDROID_HOME $PWD/android-sdk-linux
 ENV PATH ${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:$PATH
+
+# android ndk
+ENV ANDROID_NDK_VERSION r10e
+ENV ANDROID_NDK_URL http://dl.google.com/android/repository/android-ndk-${ANDROID_NDK_VERSION}-linux-x86_64.zip
+RUN curl -L "${ANDROID_NDK_URL}" -o android-ndk-${ANDROID_NDK_VERSION}-linux-x86_64.zip  \
+  && unzip android-ndk-${ANDROID_NDK_VERSION}-linux-x86_64.zip -d ${SDK_HOME}  \
+  && rm -rf android-ndk-${ANDROID_NDK_VERSION}-linux-x86_64.zip
+ENV ANDROID_NDK_HOME ${SDK_HOME}/android-ndk-${ANDROID_NDK_VERSION}
+ENV PATH ${ANDROID_NDK_HOME}:$PATH
+
 #android-wait-for-emulator
 RUN curl https://raw.githubusercontent.com/Cangol/android-gradle-docker/master/android-wait-for-emulator -o ${SDK_HOME}/bin/android-wait-for-emulator
 RUN chmod u+x ${SDK_HOME}/bin/android-wait-for-emulator

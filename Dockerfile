@@ -39,13 +39,13 @@ RUN curl -L "${ANDROID_NDK_URL}" -o android-ndk-${ANDROID_NDK_VERSION}-linux-x86
   && rm -rf android-ndk-${ANDROID_NDK_VERSION}-linux-x86_64.zip
 ENV ANDROID_NDK_HOME ${SDK_HOME}/android-ndk-${ANDROID_NDK_VERSION}
 ENV PATH ${ANDROID_NDK_HOME}:$PATH
-RUN chmod u+x ${ANDROID_NDK_HOME} -R
+RUN chmod u+x ${ANDROID_NDK_HOME}/ -R
 
 # Android CMake
 RUN wget -q https://dl.google.com/android/repository/cmake-3.6.3155560-linux-x86_64.zip -O android-cmake.zip
 RUN unzip -q android-cmake.zip -d ${ANDROID_HOME}/cmake
 ENV PATH ${PATH}:${ANDROID_HOME}/cmake/bin
-RUN chmod u+x ${ANDROID_HOME}/cmake/bin -R
+RUN chmod u+x ${ANDROID_HOME}/cmake/bin/ -R
 
 #android-wait-for-emulator
 RUN curl https://raw.githubusercontent.com/Cangol/android-gradle-docker/master/android-wait-for-emulator -o ${SDK_HOME}/bin/android-wait-for-emulator

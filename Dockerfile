@@ -23,9 +23,6 @@ ENV ANDROID_SDK_URL https://dl.google.com/android/repository/tools_r${ANDROID_SD
 RUN curl -sSL "${ANDROID_SDK_URL}" -o android-sdk-linux.zip \
     && unzip android-sdk-linux.zip -d android-sdk-linux \
   && rm -rf android-sdk-linux.zip
-  
-RUN wget --quiet --output-document=android-sdk.tgz https://dl.google.com/android/android-sdk_r${ANDROID_SDK_TOOLS}-linux.tgz && \
-    tar --extract --gzip --file=android-sdk.tgz
 RUN echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter "${ANDROID_TARGET_SDK}" && \
     echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter platform-tools && \
     echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter "${ANDROID_BUILD_TOOLS}"

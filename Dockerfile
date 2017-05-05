@@ -16,8 +16,8 @@ ENV PATH ${GRADLE_HOME}/bin:$PATH
 
 # android sdk|build-tools|image
 ENV ANDROID_TARGET_SDK="android-25" \
-    ANDROID_BUILD_TOOLS="build-tools-25.0.0,build-tools-25.0.2" \
-    ANDROID_SDK_TOOLS="25.0.0" \
+    ANDROID_BUILD_TOOLS="build-tools-25.0.0" \
+    ANDROID_SDK_TOOLS="25.2.3" \
     ANDROID_IMAGES="sys-img-armeabi-v7a-android-25,sys-img-armeabi-v7a-android-25"
 RUN wget --quiet --output-document=android-sdk.tgz https://dl.google.com/android/android-sdk_r${ANDROID_SDK_TOOLS}-linux.tgz && \
     tar --extract --gzip --file=android-sdk.tgz

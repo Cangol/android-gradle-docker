@@ -15,7 +15,7 @@ ENV GRADLE_HOME ${SDK_HOME}/gradle-${GRADLE_VERSION}
 ENV PATH ${GRADLE_HOME}/bin:$PATH
 
 # android sdk|build-tools|image
-ENV ANDROID_TARGET_SDK="android-26" \
+ENV ANDROID_TARGET_SDK="26" \
     ANDROID_BUILD_TOOLS="build-tools-26.0.3" \
     ANDROID_SDK_TOOLS="3859397" \
     ANDROID_IMAGES="sys-img-armeabi-v7a-android-25,sys-img-armeabi-v7a-android-25"   

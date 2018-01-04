@@ -15,7 +15,7 @@ ENV GRADLE_HOME ${SDK_HOME}/gradle-${GRADLE_VERSION}
 ENV PATH ${GRADLE_HOME}/bin:$PATH
 
 # android sdk|build-tools|image
-ENV ANDROID_TARGET_SDK="android-N" \
+ENV ANDROID_TARGET_SDK="android-26" \
     ANDROID_BUILD_TOOLS="build-tools-26.0.3" \
     ANDROID_SDK_TOOLS="3859397" \
     ANDROID_IMAGES="sys-img-armeabi-v7a-android-25,sys-img-armeabi-v7a-android-25"   
@@ -23,13 +23,11 @@ ENV ANDROID_SDK_URL https://dl.google.com/android/repository/sdk-tools-linux-${A
 RUN curl -sSL "${ANDROID_SDK_URL}" -o android-sdk-linux.zip \
     && unzip android-sdk-linux.zip -d android-sdk-linux \
   && rm -rf android-sdk-linux.zip
-RUN echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter "${ANDROID_TARGET_SDK}" && \
-    echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter platform-tools && \
-    echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter "${ANDROID_BUILD_TOOLS}"
-RUN echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter extra-android-m2repository && \
-    echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter extra-google-google_play_services && \
-    echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter extra-google-m2repository
-RUN echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter "${ANDROID_IMAGES}" --force
+# Install SDK Packages
+RUN mkdir -p ${ANDROID_HOME}/licenses/ && \
+	echo "8933bad161af4178b1185d1a37fbf41ea5269c55" > ${ANDROID_HOME}/licenses/android-sdk-license && \
+	mkdir -p /root/.android/ && touch /root/.android/repositories.cfg && \
+	${ANDROID_HOME}/tools/bin/sdkmanager "build-tools;${BUILD_TOOLS}" "platform-tools" "platforms;${TARGET_SDK}" "extras;android;m2repository" "extras;google;google_play_services" "extras;google;m2repository"
 ENV ANDROID_HOME $PWD/android-sdk-linux
 ENV PATH ${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:$PATH
 

@@ -17,7 +17,7 @@ ENV PATH ${GRADLE_HOME}/bin:$PATH
 # android sdk|build-tools|image
 ENV ANDROID_TARGET_SDK="android-26" \
     ANDROID_BUILD_TOOLS="build-tools-26.0.3" \
-    ANDROID_SDK_TOOLS="26.0.3" \
+    ANDROID_SDK_TOOLS="26.1.1" \
     ANDROID_IMAGES="sys-img-armeabi-v7a-android-25,sys-img-armeabi-v7a-android-25"   
 ENV ANDROID_SDK_URL https://dl.google.com/android/repository/tools_r${ANDROID_SDK_TOOLS}-linux.zip
 RUN curl -sSL "${ANDROID_SDK_URL}" -o android-sdk-linux.zip \
@@ -34,7 +34,7 @@ ENV ANDROID_HOME $PWD/android-sdk-linux
 ENV PATH ${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:$PATH
 
 # android ndk
-ENV ANDROID_NDK_VERSION r10e
+ENV ANDROID_NDK_VERSION 16.1.4479499
 ENV ANDROID_NDK_URL http://dl.google.com/android/repository/android-ndk-${ANDROID_NDK_VERSION}-linux-x86_64.zip
 RUN curl -L "${ANDROID_NDK_URL}" -o android-ndk-${ANDROID_NDK_VERSION}-linux-x86_64.zip  \
   && unzip android-ndk-${ANDROID_NDK_VERSION}-linux-x86_64.zip -d ${SDK_HOME}  \

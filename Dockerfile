@@ -43,7 +43,7 @@ RUN $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;
 RUN $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2"
 
 # android ndk
-ENV ANDROID_NDK_VERSION 16.1.4479499
+ENV ANDROID_NDK_VERSION r16b
 ENV ANDROID_NDK_URL http://dl.google.com/android/repository/android-ndk-${ANDROID_NDK_VERSION}-linux-x86_64.zip
 RUN curl -L "${ANDROID_NDK_URL}" -o android-ndk-${ANDROID_NDK_VERSION}-linux-x86_64.zip  \
   && unzip android-ndk-${ANDROID_NDK_VERSION}-linux-x86_64.zip -d ${SDK_HOME}  \

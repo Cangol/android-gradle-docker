@@ -30,7 +30,7 @@ ENV PATH ${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:$PATH
 RUN mkdir -p ${ANDROID_HOME}/licenses/ && \
 	echo "8933bad161af4178b1185d1a37fbf41ea5269c55" > ${ANDROID_HOME}/licenses/android-sdk-license && \
 	mkdir -p /root/.android/ && touch /root/.android/repositories.cfg && \
-	${ANDROID_HOME}/tools/bin/sdkmanager "build-tools;${ANDROID_BUILD_TOOLS}" "platform-tools" "platforms;${ANDROID_TARGET_SDK}" "extras;android;m2repository" "extras;google;google_play_services" "extras;google;m2repository"
+	${ANDROID_HOME}/tools/bin/sdkmanager "build-tools;26.0.3" "platform-tools" "platforms;26" "extras;android;m2repository" "extras;google;google_play_services" "extras;google;m2repository"
 
 
 # android ndk

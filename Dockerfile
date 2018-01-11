@@ -23,6 +23,7 @@ ENV ANDROID_SDK_URL https://dl.google.com/android/repository/sdk-tools-linux-${A
 RUN curl -sSL "${ANDROID_SDK_URL}" -o android-sdk-linux.zip \
     && unzip android-sdk-linux.zip -d android-sdk-linux \
   && rm -rf android-sdk-linux.zip
+  
 # Install SDK Packages
 ENV ANDROID_HOME $PWD/android-sdk-linux
 ENV PATH ${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:$PATH

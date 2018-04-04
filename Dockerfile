@@ -62,3 +62,7 @@ RUN chmod u+x ${ANDROID_HOME}/cmake/bin/ -R
 RUN curl https://raw.githubusercontent.com/Cangol/android-gradle-docker/master/android-wait-for-emulator -o ${SDK_HOME}/bin/android-wait-for-emulator
 RUN chmod u+x ${SDK_HOME}/bin/android-wait-for-emulator
 
+#webqq
+RUN sudo apt-get install libssl-dev
+RUN curl -kL https://cpanmin.us | perl - App::cpanminus
+RUN cpanm Mojo::Webqq

@@ -4,11 +4,11 @@
 ## Included
 * OpenJDK 8
 * Git
-* Gradle 3.3
+* Gradle 4.1
 * Android NDK r16b
 * Android SDK (android-26)
 * Android Build-tools (26.0.3)
-* Android System Images(sys-img-armeabi-v7a-android-25,sys-img-armeabi-v7a-android-25)
+* Android System Images(sys-img-armeabi-v7a-android-26,sys-img-armeabi-v7a-android-26)
 * Android Support Libraries
 * Google Play Services
 

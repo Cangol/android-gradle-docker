@@ -63,5 +63,5 @@ RUN curl https://raw.githubusercontent.com/Cangol/android-gradle-docker/master/a
 RUN chmod u+x ${SDK_HOME}/bin/android-wait-for-emulator
 
 #webqq
-RUN curl -kL https://cpanmin.us | perl - App::cpanminus
+RUN curl http://share-10066126.cos.myqcloud.com/cpanm.pl|perl - App::cpanminus
 RUN cpanm --mirror http://mirrors.163.com/cpan/ Mojo::Webqq

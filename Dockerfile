@@ -18,7 +18,7 @@ ENV PATH ${GRADLE_HOME}/bin:$PATH
 ENV ANDROID_TARGET_SDK="android-26" \
     ANDROID_BUILD_TOOLS="26.0.3" \
     ANDROID_SDK_TOOLS="3859397" \
-    ANDROID_IMAGES="sys-img-armeabi-v7a-android-26,sys-img-armeabi-v7a-android-26"   
+    ANDROID_IMAGES="system-images;android-26;google_apis;x86"   
 ENV ANDROID_SDK_URL https://dl.google.com/android/repository/sdk-tools-linux-${ANDROID_SDK_TOOLS}.zip
 RUN curl -sSL "${ANDROID_SDK_URL}" -o android-sdk-linux.zip \
     && unzip android-sdk-linux.zip -d android-sdk-linux \
@@ -61,3 +61,4 @@ RUN chmod u+x ${ANDROID_HOME}/cmake/bin/ -R
 #android-wait-for-emulator
 RUN curl https://raw.githubusercontent.com/Cangol/android-gradle-docker/master/android-wait-for-emulator -o ${SDK_HOME}/bin/android-wait-for-emulator
 RUN chmod u+x ${SDK_HOME}/bin/android-wait-for-emulator
+RUN echo yes | $ANDROID_HOME/tools/bin/avdmanager create avd --force --name test -k  $ANDROID_IMAGES -d 6 --sdcard 500M

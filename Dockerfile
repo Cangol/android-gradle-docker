@@ -18,7 +18,7 @@ ENV PATH ${GRADLE_HOME}/bin:$PATH
 ENV ANDROID_TARGET_SDK="android-26" \
     ANDROID_BUILD_TOOLS="26.0.3" \
     ANDROID_SDK_TOOLS="3859397" \
-    ANDROID_IMAGES="system-images;android-26;google_apis;x86"   
+    ANDROID_IMAGES="system-images;android-26;google_apis;x86_64"   
 ENV ANDROID_SDK_URL https://dl.google.com/android/repository/sdk-tools-linux-${ANDROID_SDK_TOOLS}.zip
 RUN curl -sSL "${ANDROID_SDK_URL}" -o android-sdk-linux.zip \
     && unzip android-sdk-linux.zip -d android-sdk-linux \
@@ -35,12 +35,14 @@ RUN echo d56f5187479451eabf01fb78af6dfcb131a6481e >> $ANDROID_HOME/licenses/andr
 RUN echo 84831b9409646a918e30573bab4c9c91346d8abd > $ANDROID_HOME/licenses/android-sdk-preview-license
 
 # Update and install using sdkmanager 
-RUN echo yes | $ANDROID_HOME/tools/bin/sdkmanager "tools" "platform-tools"
-RUN echo yes | $ANDROID_HOME/tools/bin/sdkmanager "build-tools;${ANDROID_BUILD_TOOLS}"
-RUN echo yes | $ANDROID_HOME/tools/bin/sdkmanager "platforms;${ANDROID_TARGET_SDK}"
-RUN echo yes | $ANDROID_HOME/tools/bin/sdkmanager "extras;android;m2repository" "extras;google;google_play_services" "extras;google;m2repository"
-RUN echo yes | $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2"
-RUN echo yes | $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2"
+RUN echo no | $ANDROID_HOME/tools/bin/sdkmanager "tools" "platform-tools"
+RUN echo no | $ANDROID_HOME/tools/bin/sdkmanager "build-tools;${ANDROID_BUILD_TOOLS}"
+RUN echo no | $ANDROID_HOME/tools/bin/sdkmanager "platforms;${ANDROID_TARGET_SDK}"
+RUN echo no | $ANDROID_HOME/tools/bin/sdkmanager "extras;android;m2repository" "extras;google;google_play_services" "extras;google;m2repository"
+RUN echo no | $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2"
+RUN echo no | $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2"
+RUN echo no | $ANDROID_HOME/tools/bin/sdkmanager ${ANDROID_IMAGES}
+RUN echo no | $ANDROID_HOME/tools/bin/sdkmanager --licenses
 
 # android ndk
 ENV ANDROID_NDK_VERSION r16b
@@ -61,4 +63,4 @@ RUN chmod u+x ${ANDROID_HOME}/cmake/bin/ -R
 #android-wait-for-emulator
 RUN curl https://raw.githubusercontent.com/Cangol/android-gradle-docker/master/android-wait-for-emulator -o ${SDK_HOME}/bin/android-wait-for-emulator
 RUN chmod u+x ${SDK_HOME}/bin/android-wait-for-emulator
-RUN echo yes | $ANDROID_HOME/tools/bin/avdmanager create avd --force --name test -k  $ANDROID_IMAGES -d 6 --sdcard 500M
+RUN echo no | $ANDROID_HOME/tools/bin/avdmanager create avd --force --name test -k  $ANDROID_IMAGES -d 6 --sdcard 500M

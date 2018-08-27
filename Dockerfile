@@ -6,7 +6,7 @@ ENV SDK_HOME /usr/local
 RUN apt-get --quiet update --yes
 RUN apt-get --quiet install --yes wget tar unzip lib32stdc++6 lib32z1 git --no-install-recommends
 # Gradle
-ENV GRADLE_VERSION 4.1
+ENV GRADLE_VERSION 3.3
 ENV GRADLE_SDK_URL https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip
 RUN curl -sSL "${GRADLE_SDK_URL}" -o gradle-${GRADLE_VERSION}-bin.zip  \
 	&& unzip gradle-${GRADLE_VERSION}-bin.zip -d ${SDK_HOME}  \
@@ -15,35 +15,26 @@ ENV GRADLE_HOME ${SDK_HOME}/gradle-${GRADLE_VERSION}
 ENV PATH ${GRADLE_HOME}/bin:$PATH
 
 # android sdk|build-tools|image
-ENV ANDROID_TARGET_SDK="android-26" \
-    ANDROID_BUILD_TOOLS="26.0.3" \
-    ANDROID_SDK_TOOLS="3859397" \
-    ANDROID_IMAGES="sys-img-armeabi-v7a-android-26,sys-img-armeabi-v7a-android-26"   
-ENV ANDROID_SDK_URL https://dl.google.com/android/repository/sdk-tools-linux-${ANDROID_SDK_TOOLS}.zip
+ENV ANDROID_TARGET_SDK="android-25" \
+    ANDROID_BUILD_TOOLS="build-tools-25.0.0" \
+    ANDROID_SDK_TOOLS="25.2.3" \
+    ANDROID_IMAGES="sys-img-armeabi-v7a-android-25,sys-img-armeabi-v7a-android-25"   
+ENV ANDROID_SDK_URL https://dl.google.com/android/repository/tools_r${ANDROID_SDK_TOOLS}-linux.zip
 RUN curl -sSL "${ANDROID_SDK_URL}" -o android-sdk-linux.zip \
     && unzip android-sdk-linux.zip -d android-sdk-linux \
   && rm -rf android-sdk-linux.zip
-  
-# Set ANDROID_HOME
+RUN echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter "${ANDROID_TARGET_SDK}" && \
+    echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter platform-tools && \
+    echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter "${ANDROID_BUILD_TOOLS}"
+RUN echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter extra-android-m2repository && \
+    echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter extra-google-google_play_services && \
+    echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter extra-google-m2repository
+RUN echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter "${ANDROID_IMAGES}" --force
 ENV ANDROID_HOME $PWD/android-sdk-linux
 ENV PATH ${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:$PATH
 
-# licenses
-RUN mkdir $ANDROID_HOME/licenses
-RUN echo 8933bad161af4178b1185d1a37fbf41ea5269c55 > $ANDROID_HOME/licenses/android-sdk-license
-RUN echo d56f5187479451eabf01fb78af6dfcb131a6481e >> $ANDROID_HOME/licenses/android-sdk-license
-RUN echo 84831b9409646a918e30573bab4c9c91346d8abd > $ANDROID_HOME/licenses/android-sdk-preview-license
-
-# Update and install using sdkmanager 
-RUN echo yes | $ANDROID_HOME/tools/bin/sdkmanager "tools" "platform-tools"
-RUN echo yes | $ANDROID_HOME/tools/bin/sdkmanager "build-tools;${ANDROID_BUILD_TOOLS}"
-RUN echo yes | $ANDROID_HOME/tools/bin/sdkmanager "platforms;${ANDROID_TARGET_SDK}"
-RUN echo yes | $ANDROID_HOME/tools/bin/sdkmanager "extras;android;m2repository" "extras;google;google_play_services" "extras;google;m2repository"
-RUN echo yes | $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2"
-RUN echo yes | $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2"
-
 # android ndk
-ENV ANDROID_NDK_VERSION r16b
+ENV ANDROID_NDK_VERSION r10e
 ENV ANDROID_NDK_URL http://dl.google.com/android/repository/android-ndk-${ANDROID_NDK_VERSION}-linux-x86_64.zip
 RUN curl -L "${ANDROID_NDK_URL}" -o android-ndk-${ANDROID_NDK_VERSION}-linux-x86_64.zip  \
   && unzip android-ndk-${ANDROID_NDK_VERSION}-linux-x86_64.zip -d ${SDK_HOME}  \

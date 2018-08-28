@@ -5,6 +5,7 @@ ENV SDK_HOME /usr/local
 
 RUN apt-get --quiet update --yes
 RUN apt-get --quiet install --yes wget tar unzip lib32stdc++6 lib32z1 git --no-install-recommends
+RUN apt-get --quiet install --yes libqt5widgets5
 # Gradle
 ENV GRADLE_VERSION 4.1
 ENV GRADLE_SDK_URL https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip
@@ -18,7 +19,7 @@ ENV PATH ${GRADLE_HOME}/bin:$PATH
 ENV ANDROID_TARGET_SDK="android-26" \
     ANDROID_BUILD_TOOLS="26.0.3" \
     ANDROID_SDK_TOOLS="3859397" \
-    ANDROID_IMAGES="system-images;android-26;google_apis;x86_64"   
+    ANDROID_IMAGES="system-images;android-25;google_apis;arm64-v8a"   
 ENV ANDROID_SDK_URL https://dl.google.com/android/repository/sdk-tools-linux-${ANDROID_SDK_TOOLS}.zip
 RUN curl -sSL "${ANDROID_SDK_URL}" -o android-sdk-linux.zip \
     && unzip android-sdk-linux.zip -d android-sdk-linux \
@@ -35,14 +36,19 @@ RUN echo d56f5187479451eabf01fb78af6dfcb131a6481e >> $ANDROID_HOME/licenses/andr
 RUN echo 84831b9409646a918e30573bab4c9c91346d8abd > $ANDROID_HOME/licenses/android-sdk-preview-license
 
 # Update and install using sdkmanager 
-RUN echo no | $ANDROID_HOME/tools/bin/sdkmanager "tools" "platform-tools"
-RUN echo no | $ANDROID_HOME/tools/bin/sdkmanager "build-tools;${ANDROID_BUILD_TOOLS}"
-RUN echo no | $ANDROID_HOME/tools/bin/sdkmanager "platforms;${ANDROID_TARGET_SDK}"
-RUN echo no | $ANDROID_HOME/tools/bin/sdkmanager "extras;android;m2repository" "extras;google;google_play_services" "extras;google;m2repository"
-RUN echo no | $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2"
-RUN echo no | $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2"
-RUN echo no | $ANDROID_HOME/tools/bin/sdkmanager ${ANDROID_IMAGES}
-RUN echo no | $ANDROID_HOME/tools/bin/sdkmanager --licenses
+RUN echo yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses
+RUN echo yes | $ANDROID_HOME/tools/bin/sdkmanager --update
+RUN echo yes | $ANDROID_HOME/tools/bin/sdkmanager "tools" "platform-tools" "emulator"
+RUN echo yes | $ANDROID_HOME/tools/bin/sdkmanager "build-tools;${ANDROID_BUILD_TOOLS}"
+RUN echo yes | $ANDROID_HOME/tools/bin/sdkmanager "platforms;${ANDROID_TARGET_SDK}"
+RUN echo yes | $ANDROID_HOME/tools/bin/sdkmanager "extras;android;m2repository" "extras;google;google_play_services" "extras;google;m2repository"
+RUN echo yes | $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2"
+RUN echo yes | $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2"
+RUN echo yes | $ANDROID_HOME/tools/bin/sdkmanager ${ANDROID_IMAGES}
+
+
+#RUN echo yes | $ANDROID_HOME/tools/bin/sdkmanager "extras;intel;Hardware_Accelerated_Execution_Manager"
+#RUN echo yes | sudo $ANDROID_HOME/extras/intel/Hardware_Accelerated_Execution_Manager/silent_install.sh
 
 # android ndk
 ENV ANDROID_NDK_VERSION r16b
@@ -61,6 +67,8 @@ ENV PATH ${PATH}:${ANDROID_HOME}/cmake/bin
 RUN chmod u+x ${ANDROID_HOME}/cmake/bin/ -R
 
 #android-wait-for-emulator
-RUN curl https://raw.githubusercontent.com/Cangol/android-gradle-docker/master/android-wait-for-emulator -o ${SDK_HOME}/bin/android-wait-for-emulator
-RUN chmod u+x ${SDK_HOME}/bin/android-wait-for-emulator
-RUN echo no | $ANDROID_HOME/tools/bin/avdmanager create avd --force --name test -k  $ANDROID_IMAGES -d 6 --sdcard 500M
+RUN curl https://raw.githubusercontent.com/Cangol/android-gradle-docker/master/android-wait-for-emulator -o android-wait-for-emulator
+RUN chmod u+x android-wait-for-emulator
+
+#avdmanager create avd
+RUN echo yes | $ANDROID_HOME/tools/bin/avdmanager create avd --force --name test -k  $ANDROID_IMAGES --device "Nexus 5X" --sdcard 500M

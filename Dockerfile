@@ -67,8 +67,10 @@ ENV PATH ${PATH}:${ANDROID_HOME}/cmake/bin
 RUN chmod u+x ${ANDROID_HOME}/cmake/bin/ -R
 
 #android-wait-for-emulator
-RUN curl https://raw.githubusercontent.com/Cangol/android-gradle-docker/master/android-wait-for-emulator -o android-wait-for-emulator
-RUN chmod u+x android-wait-for-emulator
+#android-wait-for-emulator
+RUN curl https://raw.githubusercontent.com/Cangol/android-gradle-docker/master/android-wait-for-emulator -o ${SDK_HOME}/bin/android-wait-for-emulator
+RUN chmod u+x ${SDK_HOME}/bin/android-wait-for-emulator
+ENV PATH ${SDK_HOME}/bin:$PATH
 
 #avdmanager create avd
 RUN echo yes | $ANDROID_HOME/tools/bin/avdmanager create avd --force --name test -k  $ANDROID_IMAGES --device "Nexus 5X" --sdcard 500M

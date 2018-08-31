@@ -69,8 +69,7 @@ RUN chmod u+x ${ANDROID_HOME}/cmake/bin/ -R
 
 #android-wait-for-emulator
 ENV PATH ${SDK_HOME}/bin:$PATH
-RUN curl https://raw.githubusercontent.com/Cangol/android-gradle-docker/master/android-wait-for-emulator -o ${SDK_HOME}/bin/
-android-wait-for-emulator
+RUN curl https://raw.githubusercontent.com/Cangol/android-gradle-docker/master/android-wait-for-emulator -o ${SDK_HOME}/bin/android-wait-for-emulator
 RUN chmod u+x ${SDK_HOME}/bin/android-wait-for-emulator
 
 #avdmanager create avd

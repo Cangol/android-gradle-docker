@@ -5,7 +5,7 @@ ENV SDK_HOME /usr/local
 
 RUN apt-get --quiet update --yes
 RUN apt-get --quiet install --yes wget tar unzip lib32stdc++6 lib32z1 git --no-install-recommends
-RUN apt-get --quiet install --yes libqt5widgets5
+RUN apt-get --quiet install --yes libqt5widgets5 usbutils
 
 # Gradle
 ENV GRADLE_VERSION 4.1
@@ -20,7 +20,7 @@ ENV PATH ${GRADLE_HOME}/bin:$PATH
 ENV ANDROID_TARGET_SDK="android-26" \
     ANDROID_BUILD_TOOLS="26.0.3" \
     ANDROID_SDK_TOOLS="3859397" \
-    ANDROID_IMAGES="system-images;android-25;google_apis;arm64-v8a"   
+    ANDROID_IMAGES="system-images;android-22;google_apis;armeabi-v7a"   
 ENV ANDROID_SDK_URL https://dl.google.com/android/repository/sdk-tools-linux-${ANDROID_SDK_TOOLS}.zip
 RUN curl -sSL "${ANDROID_SDK_URL}" -o android-sdk-linux.zip \
     && unzip android-sdk-linux.zip -d android-sdk-linux \

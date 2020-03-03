@@ -8,7 +8,7 @@ RUN apt-get --quiet install --yes wget tar unzip lib32stdc++6 lib32z1 git --no-i
 RUN apt-get --quiet install --yes libqt5widgets5 usbutils
 
 # Gradle
-ENV GRADLE_VERSION 5.4.1
+ENV GRADLE_VERSION 6.0.1
 ENV GRADLE_SDK_URL https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip
 RUN curl -sSL "${GRADLE_SDK_URL}" -o gradle-${GRADLE_VERSION}-bin.zip  \
 	&& unzip gradle-${GRADLE_VERSION}-bin.zip -d ${SDK_HOME}  \

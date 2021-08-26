@@ -4,9 +4,9 @@
 ## Included
 * OpenJDK 8
 * Git
-* Gradle 5.4.1
-* Android SDK (android-28)
-* Android Build-tools (28.0.3)
+* Gradle 6.5
+* Android SDK (android-30)
+* Android Build-tools (30.0.2)
 * Android Support Libraries
 * Google Play Services
 
